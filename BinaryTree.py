@@ -42,7 +42,7 @@ class BinaryTree:
     # Altura
     def height(self):
         if self.__left is None and self.__right is None:
-            return -1
+            return 0  # Mudado aqui
         else:
             hl = 0
             hr = 0
