@@ -23,16 +23,15 @@ root = root.insert(dado7)
 root = root.insert(dado8)
 
 root.simmetric()
+print(root.balance(root))
 
-dado = None
-root, dado = root.remove(11, dado)
+print("\n", dado.getVal(), root.balance(root))
 
 root.simmetric()
-#print(root.balance())
+
+# print(root.balance())
 
 #eoq = root.remove(2)
-
-#print(root.balance(), eoq.getVal())
 
 
 # root.simmetric()
