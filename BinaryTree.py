@@ -19,6 +19,9 @@ class BinaryTree:
 
     # Métodos de Imprimir
     def preOrder(self):
+        if self.__data is None:
+            print("Árvore Vazia")
+            return None
         if self.__left is not None:
             self.__left.preOrder()
         if self.__right is not None:
@@ -26,6 +29,9 @@ class BinaryTree:
         print(self)
 
     def postOrder(self):
+        if self.__data is None:
+            print("Árvore Vazia")
+            return None
         print(self)
         if self.__left is not None:
             self.__left.postOrder()
@@ -33,6 +39,9 @@ class BinaryTree:
             self.__right.postOrder()
 
     def simmetric(self):
+        if self.__data is None:
+            print("Árvore Vazia")
+            return None
         if self.__left is not None:
             self.__left.simmetric()
         print(self)
@@ -56,7 +65,7 @@ class BinaryTree:
                 return 1 + hr
 
     # Inserção e Remoção
-    def insert(self, data):
+    def insert(self, data, comp):
         if self.__data is None:
             self.__data = data
         else:
@@ -64,23 +73,37 @@ class BinaryTree:
             aux2 = self
             while aux2 is not None:
                 aux = aux2
-                if aux2.__data.getVal() > data.getVal():
+                if comp(aux2.__data.getVal(), data.getVal()) == 1:
                     aux2 = aux2.__left
                 else:
                     aux2 = aux2.__right
-            if aux.__data.getVal() > data.getVal():
+            if comp(aux.__data.getVal(), data.getVal()) == 1:
                 aux.__left = BinaryTree(data)
             else:
                 aux.__right = BinaryTree(data)
 
-    def remove(self, key):
+    def remove(self, key, comp):
+        if self.__data is None:
+            return None
+        if self.__data is not None:
+            if comp(self.__data.getVal(), key) == 0:
+                data = self.__data
+                if self.__left is not None:
+                    self.__data = self.remove(self.__left.maxTree().getVal(),
+                                              comp)
+                elif self.__right is not None:
+                    self.__data = self.remove(self.__right.minTree().getVal(),
+                                              comp)
+                else:
+                    self.__data = None
+                return data
         aux = None
         aux2 = self
         while aux2 is not None:
-            if aux2.__data.getVal() == key:
+            if comp(aux2.__data.getVal(), key) == 0:
                 break
             aux = aux2
-            if aux2.__data.getVal() > key:
+            if comp(aux2.__data.getVal(), key) == 1:
                 aux2 = aux2.__left
             else:
                 aux2 = aux2.__right
@@ -102,7 +125,7 @@ class BinaryTree:
                 else:
                     aux.__right = aux2.__left
             else:
-                aux2.__data = aux2.remove(aux2.__left.maxTree().getVal())
+                aux2.__data = aux2.remove(aux2.__left.maxTree().getVal(), comp)
             return data
 
     # Máximos e Mínimos
@@ -119,12 +142,12 @@ class BinaryTree:
         return aux.__data
 
     # Busca
-    def search(self, key):
+    def search(self, key, comp):
         aux = self
         while aux is not None:
-            if aux.__data.getVal() == key:
+            if comp(aux.__data.getVal(), key) == 0:
                 return aux.__data
-            if aux.__data.getVal() > key:
+            if comp(aux.__data.getVal(), key) == 1:
                 aux = aux.__left
             else:
                 aux = aux.__right
