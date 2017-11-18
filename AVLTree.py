@@ -1,5 +1,5 @@
 class AVLTree:
-        # Métodos Padrões
+    # Métodos Padrões
     def __init__(self, data=None, left=None, right=None):
         self.__data = data
         self.__left = left
