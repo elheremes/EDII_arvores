@@ -31,6 +31,7 @@ class AVLTree:
         if self.__right is not None:
             self.__right.simmetric()
 
+    # Getters
     # Altura
     def getHeight(self, node):
         if node is None:
@@ -38,11 +39,17 @@ class AVLTree:
         else:
             return node.__height
 
-    # Inserção e Remoção        
+    ###########################################
+    # Inserção                                #
+    #                                         #
+    # Retorno: retorna a nova raiz atualizada #
+    #                                         #
+    # Chamada: root = root.insert(data)       #
+    ###########################################
     def insert(self, data):
         if self.__data is None:
             self.__data = data
-            
+
         else:
             if self.__data.getVal() > data.getVal():
                 if self.__left is not None:
@@ -58,27 +65,37 @@ class AVLTree:
             self.__height = 1 + max(self.getHeight(self.__left),
                                     self.getHeight(self.__right))
 
-            balance = self.balance()
-            
+            balance = self.balance(self)
+
             if balance == 2:
-                newBalance = self.__right.balance()
+                newBalance = self.balance(self.__right)
                 if newBalance != -1:
                     return self.leftRotation()
                 else:
                     return self.doubleLeftRotation()
             elif balance == -2:
-                newBalance = self.__left.balance()
+                newBalance = self.balance(self.__left)
                 if newBalance != 1:
                     return self.rightRotation()
                 else:
                     return self.doubleRightRotation()
-                
+
             return self
 
-    def balance(self):
-        return self.getHeight(self.__right) - self.getHeight(self.__left)
-    
-    def remove(self, key, data):
+    #############################################
+    # Remoção                                   #
+    #                                           #
+    # Retorno: retorna uma tupla (x, y) tal que #
+    # x é a nova raiz e y o dado retirado       #
+    #                                           #
+    # Chamada: root, data = root.remove(key)    #
+    #############################################
+    def remove(self, key):
+        dado = None
+        root, dado = self.__remove(key, dado)
+        return root, dado
+
+    def __remove(self, key, data):
         if self.__data is None:
             return self, None
         else:
@@ -86,12 +103,12 @@ class AVLTree:
                 if self.__left is None:
                     return self, None
                 else:
-                    self.__left, data = self.__left.remove(key, data)
+                    self.__left, data = self.__left.__remove(key, data)
             elif self.__data.getVal() < key:
                 if self.__right is None:
                     return self, None
                 else:
-                    self.__right, data = self.__right.remove(key, data)
+                    self.__right, data = self.__right.__remove(key, data)
             else:
                 data = self.__data
 
@@ -102,29 +119,42 @@ class AVLTree:
 
                 self.__data = self.__left.maxTree()
                 aux = None
-                self.__left, aux = self.__left.remove(self.__data.getVal(),
-                                                       aux)
+                self.__left, aux = self.__left.__remove(self.__data.getVal(),
+                                                        aux)
 
             self.__height = 1 + max(self.getHeight(self.__left),
                                     self.getHeight(self.__right))
 
-            balance = self.balance()
-            
-            if balance > 1 and self.__left.balance() >= 0:
+            balance = self.balance(self)
+
+            if balance > 1 and self.balance(self.__left) >= 0:
                 return self.leftRotation(), data
             # Case 2 - Right Right
-            if balance < -1 and self.__right.balance() <= 0:
+            if balance < -1 and self.balance(self.__right) <= 0:
                 return self.rightRotation(), data
             # Case 3 - Left Right
-            if balance > 1 and self.__left.balance() < 0:
+            if balance > 1 and self.balance(self.__left) < 0:
                 return self.doubleLeftRotation(), data
             # Case 4 - Right Left
-            if balance < -1 and self.__right.balance() > 0:
+            if balance < -1 and self.balance(self.__right) > 0:
                 return self.doubleRightRotation(), data
-            
+
             return self, data
 
-            
+    ###############################################
+    # Checar balanceamento                        #
+    #                                             #
+    # Retorno: retorna um inteiro que significa   #
+    # a subtração do tamanho da subárvore direita #
+    # menos o da subárvore esquerda               #
+    #                                             #
+    # Chamada = root.balance(root)                #
+    ###############################################
+    def balance(self, root):
+        if root is None:
+            return 0
+        return self.getHeight(root.__right) - self.getHeight(root.__left)
+
     # Máximos e Mínimos
     def maxTree(self):
         aux = self
@@ -159,7 +189,7 @@ class AVLTree:
                             self.getHeight(self.__right)) + 1
 
         aux.__height = max(aux.getHeight(aux.__right), self.__height) + 1
-        
+
         return aux
 
     def rightRotation(self):
@@ -171,7 +201,7 @@ class AVLTree:
                             self.getHeight(self.__right)) + 1
 
         aux.__height = max(aux.getHeight(aux.__left), self.__height) + 1
-        
+
         return aux
 
     def doubleRightRotation(self):

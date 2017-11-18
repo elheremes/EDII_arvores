@@ -47,19 +47,6 @@ print(hash)
 # root = root.insert(dado8)
 
 # root.simmetric()
-
-# dado = None
-# root, dado = root.remove(11, dado)
-
-# root.simmetric()
-# print(root.balance())
-
-# eoq = root.remove(2)
-
-# print(root.balance(), eoq.getVal())
-
-
-# root.simmetric()
 # print("\n\n\n")
 
 # eoq = root.remove(8)
