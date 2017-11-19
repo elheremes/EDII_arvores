@@ -1,9 +1,9 @@
 # import Generic as g
 import Word as wd
 # import BinaryTree as bt
-import AVLTree as avl
+# import AVLTree as avl
 # import LinkedList as ll
-# import HashChained as hc
+import HashChained as hc
 
 
 C = 8
@@ -35,6 +35,14 @@ dado6 = wd.Word("Ham")
 dado7 = wd.Word("Solo")
 dado8 = wd.Word("HAN SOLO!")
 
+hash = hc.HashChained(10)
+hash["acc"] = dado1
+hash["add"] = dado2
+hash["app"] = dado3
+hash["aoo"] = dado4
+hash["acc"] = dado8
+
+print(hash)
 # list = ll.LinkedList()
 
 # list.insert(dado1)
@@ -48,20 +56,20 @@ dado8 = wd.Word("HAN SOLO!")
 # print(aux.getVal())
 
 # root = bt.BinaryTree(dado1)
-root = avl.AVLTree(dado1)
+# root = avl.AVLTree(dado1)
 
-root = root.insert(dado2, compWords)
-root = root.insert(dado3, compWords)
-root = root.insert(dado4, compWords)
-root = root.insert(dado5, compWords)
-root = root.insert(dado6, compWords)
-root = root.insert(dado7, compWords)
-root = root.insert(dado8, compWords)
+# root = root.insert(dado2, compWords)
+# root = root.insert(dado3, compWords)
+# root = root.insert(dado4, compWords)
+# root = root.insert(dado5, compWords)
+# root = root.insert(dado6, compWords)
+# root = root.insert(dado7, compWords)
+# root = root.insert(dado8, compWords)
 
-root.simmetric()
+# root.simmetric()
 
-root, data = root.remove("Aborto", compWords)
-root, data = root.remove("Ham", compWords)
+# root, data = root.remove("Aborto", compWords)
+# root, data = root.remove("Ham", compWords)
 
-root.simmetric()
+# root.simmetric()
 

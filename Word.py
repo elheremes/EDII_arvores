@@ -3,6 +3,9 @@ class Word:
         self.__word = word
         self.__occurs = occurs
 
+    def __str__(self):
+        return self.__word + " | Occur: " + str(self.__occurs)
+
     def getVal(self):
         return self.__word
 
@@ -10,4 +13,3 @@ class Word:
     def getOccurs(self):
         return self.__occurs
 
-    
