@@ -1,10 +1,9 @@
-# import Generic as g
 import Word as wd
-# import BinaryTree as bt
-# import AVLTree as avl
-# import LinkedList as ll
+import BinaryTree as bt
+import AVLTree as avl
+import LinkedList as ll
 import HashChained as hc
-
+import RedBlackTree as rbt
 
 C = 8
 
@@ -26,23 +25,44 @@ def compWords(x, y):
     return 0
 
 
-dado1 = wd.Word("Aborto")
-dado2 = wd.Word("Thiago")
-dado3 = wd.Word("Aborta")
-dado4 = wd.Word("Feijao")
-dado5 = wd.Word("Oiii")
-dado6 = wd.Word("Ham")
-dado7 = wd.Word("Solo")
+dado1 = wd.Word("Aaorto")
+dado2 = wd.Word("Bhiago")
+dado3 = wd.Word("Cborta")
+dado4 = wd.Word("Deijao")
+dado5 = wd.Word("EOiii")
+dado6 = wd.Word("FZm")
+dado7 = wd.Word("Golo")
 dado8 = wd.Word("HAN SOLO!")
+dado9 = wd.Word("Izzzzzz")
+dado10 = wd.Word("JzzzZZZzzz")
 
-hash = hc.HashChained(10)
-hash["acc"] = dado1
-hash["add"] = dado2
-hash["app"] = dado3
-hash["aoo"] = dado4
-hash["acc"] = dado8
 
-print(hash)
+tree = rbt.RedBlackTree()
+
+tree.insert(dado1, compWords)
+tree.insert(dado2, compWords)
+tree.insert(dado3, compWords)
+tree.insert(dado4, compWords)
+tree.insert(dado5, compWords)
+tree.insert(dado6, compWords)
+tree.insert(dado7, compWords)
+tree.insert(dado8, compWords)
+tree.insert(dado9, compWords)
+tree.insert(dado10, compWords)
+
+tree.simmetric()
+
+print(tree.height())
+
+
+# hash = hc.HashChained(10)
+# hash["acc"] = dado1
+# hash["add"] = dado2
+# hash["app"] = dado3
+# hash["aoo"] = dado4
+# hash["acc"] = dado8
+
+# print(hash)
 # list = ll.LinkedList()
 
 # list.insert(dado1)

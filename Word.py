@@ -14,7 +14,7 @@ class FilesOccur:
         
     
 class Word:
-    def __init__(self, word, qntdFiles):
+    def __init__(self, word, qntdFiles=1):
         self.__word = word
         self.__occurs = [FilesOccur(i) for i in range(qntdFiles)]
 
