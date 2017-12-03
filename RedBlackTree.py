@@ -24,6 +24,19 @@ class RedBlackTree:
         
     def simmetric(self):
         self.__simmetric(self.__root)
+
+    def __invertedIndex(self, node):
+        if node is None:
+            return
+        self.__invertedIndex(node.left)
+        print(node.data)
+        self.__invertedIndex(node.right)
+
+    def invertedIndex(self):
+        if self.__root is None:
+            print("Árvore Vazia")
+            return None
+        self.__invertedIndex(self.__root)
         
     def BSTInsert(self, data, comp):
         if self.__root is None:

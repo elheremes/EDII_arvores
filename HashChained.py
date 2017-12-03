@@ -1,17 +1,21 @@
 import LinkedList as ll
 import numpy as np
+import aux
 
 
 class HashElm:
     def __init__(self, key, item):
-        self.__key = key
-        self.__item = item
+        self.key = key
+        self.item = item
 
     def getItem(self):
-        return self.__item
+        return self.item
 
     def getVal(self):
-        return self.__key
+        return self.key
+
+    #  def getValC(self):
+    #   return self.key[:aux.C]
 
 
 class HashChained:
@@ -41,6 +45,15 @@ class HashChained:
         for i in range(self.__size):
             outstr += self.__array[i].__str__() + "\n"
         return outstr
+
+    def invertedIndex(self, words):
+        keyLists = list(words.keys())
+        keyLists.sort(key=lambda x: x[:aux.C])
+    
+        for word in keyLists:
+            position = self.hash(len(word))
+            value = self.__array[position].search(word)
+            print(value.getItem())
 
     # Melhorar a função de hash, usar um Hash Universal
     def hash(self, key):

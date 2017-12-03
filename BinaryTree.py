@@ -48,6 +48,16 @@ class BinaryTree:
         if self.__right is not None:
             self.__right.simmetric()
 
+    def invertedIndex(self):
+        if self.__data is None:
+            print("Árvore Vazia")
+            return None
+        if self.__left is not None:
+            self.__left.invertedIndex()
+        print(self.__data)
+        if self.__right is not None:
+            self.__right.invertedIndex()
+            
     # Altura
     def height(self):
         if self.__left is None and self.__right is None:

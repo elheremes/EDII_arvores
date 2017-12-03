@@ -1,25 +1,25 @@
 class FilesOccur:
     def __init__(self, fileId, occur=0):
-        self.__occur = occur
-        self.__fileId = fileId
+        self.occur = occur
+        self.fileId = fileId
 
     def getOccur(self):
-        return self.__occur
+        return self.occur
 
     def getFileId(self):
-        return self.__fileId
+        return self.fileId
 
     def incrementOccur(self):
-        self.__occur = self.__occur + 1
+        self.occur = self.occur + 1
         
     
 class Word:
     def __init__(self, word, qntdFiles=1):
         self.__word = word
-        self.__occurs = [FilesOccur(i) for i in range(qntdFiles)]
+        self.__occurs = [FilesOccur(i+1) for i in range(qntdFiles)]
 
     def __str__(self):
-        return self.__word + " | Occur: " + str(self.__occurs)
+        return self.__word + " " + self.printOccurs()
 
     def getVal(self):
         return self.__word
@@ -30,4 +30,18 @@ class Word:
 
     def incrementOccurs(self, fileId):
         self.__occurs[fileId - 1].incrementOccur()
+
+    def printOccurs(self):
+        string = ""
+
+        self.__occurs.sort(key=lambda x: x.occur)
+        
+        for fOccurs in self.__occurs:
+            if fOccurs.occur == 0:
+                continue
+            string += str(fOccurs.occur) + " " + str(fOccurs.fileId) + ", "
+
+        string = string[:len(string)-2]
+            
+        return string
 

@@ -40,6 +40,16 @@ class AVLTree:
         if self.__right is not None:
             self.__right.simmetric()
 
+    def invertedIndex(self):
+        if self.__data is None:
+            print("Árvore Vazia")
+            return None
+        if self.__left is not None:
+            self.__left.invertedIndex()
+        print(self.__data)
+        if self.__right is not None:
+            self.__right.invertedIndex()
+            
     # Getters
     # Altura
     def getHeight(self, node):
@@ -58,7 +68,6 @@ class AVLTree:
     def insert(self, data, comp):
         if self.__data is None:
             self.__data = data
-
         else:
             if comp(self.__data.getVal(), data.getVal()) == 1:
                 if self.__left is not None:
@@ -92,7 +101,7 @@ class AVLTree:
                                      data.getVal()) != -1:
                 return self.doubleRightRotation()
 
-            return self
+        return self
 
     ################################################
     # Remoção                                      #

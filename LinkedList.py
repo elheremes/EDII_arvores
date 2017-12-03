@@ -44,6 +44,18 @@ class LinkedList:
             aux.__next = newnode
         return True
 
+    def insertOrd(self, data, comp):
+        if self.__data is None:
+            self.__data = data
+        else:
+            aux = self
+            while comp(aux.__next.getVal(),
+                       data.getVal()) != 1 and aux.__next is not None:
+                aux = aux.__next
+            newnode = LinkedList(data)
+            aux.__next = newnode
+        return True
+    
     ##############################################
     # Remoção                                    #
     #                                            #
