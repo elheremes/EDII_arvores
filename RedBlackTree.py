@@ -146,7 +146,7 @@ class RedBlackTree:
         node.parent = nd_left
 
     def insert(self, data, comp):
-        newnode = self.BSTInsert(data, comp)     
+        newnode = self.BSTInsert(data, comp)
 
         self.fixInsertion(newnode)
 
@@ -165,3 +165,12 @@ class RedBlackTree:
     def height(self):
         return self.__height(self.__root)
         
+    def search(self, key, comp):
+        aux = self.__root
+        while aux is not None:
+            if comp(aux.data.getVal(), key) == 0:
+                return aux.data
+            if comp(aux.data.getVal(), key) == 1:
+                aux = aux.left
+            else:
+                aux = aux.right

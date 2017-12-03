@@ -1,11 +1,14 @@
 import Word as wd
 import re
+import unidecode as un
 import BinaryTree as bt
 import AVLTree as avl
 import RedBlackTree as rbt
 import HashChained as hc
+import math
 
 C = 0
+dTerms = {}
 
 
 def comp(x, y):
@@ -27,22 +30,29 @@ def compWords(x, y):
 
 def loadWords(files):
     global C
+    global dTerms
     C = int(input("Digite o valor do parâmetro C: "))
 
     words = {}
     i = 1
     for fil in files:
         f = open(fil, "r")
+        dTerms[fil] = 0
+        fileWords = {}
         for line in f:
-            for word in re.split('; |, |\*|\n|;|!|\?| ', line):
+            for word in re.split('; |, |\*|\n|;|!|\?|\.| ', line):
                 if len(word) < C:
                     continue
-                if word.lower() not in words:
-                    words[word.lower()] = wd.Word(word.lower(), len(files))
-                words[word.lower()].incrementOccurs(i)
+                theWord = un.unidecode(word.lower())
+                if theWord not in words:
+                    words[theWord] = wd.Word(theWord, len(files))
+                if theWord not in fileWords:
+                    fileWords[theWord] = theWord
+                    dTerms[fil] += 1
+                words[theWord].incrementOccurs(i)
         i = i + 1
         f.close()
-        
+    
     return words
 
 
@@ -85,3 +95,53 @@ def loadHash(words):
 def loadBTree(words):
     # B Tree com problemas!
     return True
+
+
+# Defimir limiar
+def IDF(files, tad, tadStr):
+    global dTerms
+    N = len(files)
+    L = 0.05
+    
+    strtermos = str(input("Insira os termos da consulta: "))
+    termos = strtermos.split()
+
+    i = 0
+    weights = []
+    for termo in termos:
+        if tadStr == "hash":
+            word = tad[termo]
+        else:
+            word = tad.search(termo, compWords)
+        fN = 1
+        weights.append([])
+        if word is None:
+            for fil in files:
+                weights[i].append(0)
+            continue
+        dj = word.getQFilesWOccurs(termo)
+        for fil in files:
+            f = word.getOccursFile(fN)
+            weights[i].append(f * (math.log(N, 2)/dj))
+            fN += 1
+        i += 1
+
+    IDF = []
+    fN = 1
+    for fil in files:
+        tSum = 0
+        i = 0
+        for item in termos:
+            tSum += weights[i][fN-1]
+            i += 1
+        IDF.append((1/dTerms[fil]) * tSum)
+        fN += 1
+
+    IDFcpy = list(IDF)
+    IDF.sort(reverse=True)
+
+    for idf_term in IDF:
+        if idf_term < L:
+            continue
+        i = IDFcpy.index(idf_term)
+        print(files[i], idf_term)

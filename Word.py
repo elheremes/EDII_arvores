@@ -34,7 +34,7 @@ class Word:
     def printOccurs(self):
         string = ""
 
-        self.__occurs.sort(key=lambda x: x.occur)
+        self.__occurs.sort(key=lambda x: x.occur, reverse=True)
         
         for fOccurs in self.__occurs:
             if fOccurs.occur == 0:
@@ -45,3 +45,15 @@ class Word:
             
         return string
 
+    def getOccursFile(self, fileId):
+        for fOccur in self.__occurs:
+            if fOccur.fileId == fileId:
+                return fOccur.occur
+        return -1
+
+    def getQFilesWOccurs(self, word):
+        out = 0
+        for fOccur in self.__occurs:
+            if fOccur.occur > 0:
+                out += 1
+        return out
