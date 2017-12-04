@@ -5,9 +5,10 @@ import BinaryTree as bt
 import AVLTree as avl
 import RedBlackTree as rbt
 import HashChained as hc
+import BTree as b
 import math
 
-C = 0
+C = 4
 dTerms = {}
 
 
@@ -60,7 +61,7 @@ def loadBinaryTree(words):
     tree = bt.BinaryTree()
     
     for key, word in words.items():
-        tree.insert(word, comp)
+        tree.insert(word, compWords)
 
     return tree
 
@@ -69,7 +70,7 @@ def loadAVLTree(words):
     tree = avl.AVLTree()
 
     for key, word in words.items():
-        tree = tree.insert(word, comp)
+        tree = tree.insert(word, compWords)
 
     return tree
 
@@ -78,13 +79,15 @@ def loadRedBlackTree(words):
     tree = rbt.RedBlackTree()
 
     for key, word in words.items():
-        tree.insert(word, comp)
+        tree.insert(word, compWords)
 
     return tree
 
 
 def loadHash(words):
-    hashi = hc.HashChained(20)  # melhorar isso aqui!
+    hashSize = int(input("Digite o tamanho do hash: "))
+    
+    hashi = hc.HashChained(hashSize)  # melhorar isso aqui!
 
     for key, word in words.items():
         hashi[key] = word
@@ -93,8 +96,13 @@ def loadHash(words):
 
 
 def loadBTree(words):
-    # B Tree com problemas!
-    return True
+    grau = int(input("Informe o grau da arvore: "))
+    tree = b.BTree(grau)
+
+    for key, word in words.items():
+        tree.insert(word, compWords)
+    
+    return tree
 
 
 # Defimir limiar
