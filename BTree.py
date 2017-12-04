@@ -123,12 +123,12 @@ class BTree(object):
      # return True
     if node.leaf:
       # If we are in a leaf, there is no more to check.
-      return False
+        return None
     else:
       i = 0
       while i < node.size and comp(value, node.keys[i].getVal()) == 1: # value > node.keys[i]:
         i += 1
-      return self.search(value, node.children[i])
+      return self.search(value, comp, node.children[i])
 
   def print_order(self):
     """Print an level-order representation."""
@@ -180,7 +180,7 @@ if __name__ == '__main__' :
 
   tree.invertedIndex()
 
-  eoq = tree.search("cuzidao", aux.compWords)
+  eoq = tree.search("muqueca", aux.compWords)
 
   print("\n", eoq)
   

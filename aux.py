@@ -147,7 +147,7 @@ def IDF(files, tad, tadStr):
 
     IDFcpy = list(IDF)
     IDF.sort(reverse=True)
-
+    
     for idf_term in IDF:
         if idf_term < L:
             continue

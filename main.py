@@ -59,10 +59,10 @@ def main(argv):
             elif option == 1:
                 time_start = time.clock()
                 aux.IDF(argv[2:], tad, argv[1])
+                time_elapsed = (time.clock() - time_start)
                 print("Tempo para IDF: ", time_elapsed)
                 print("Memória usada: ",
                       resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
-                tad.invertedIndex()
 
                 
 if __name__ == "__main__":
