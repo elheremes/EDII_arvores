@@ -41,7 +41,7 @@ def loadWords(files):
         dTerms[fil] = 0
         fileWords = {}
         for line in f:
-            for word in re.split('; |, |\*|\n|;|!|\?|\.| ', line):
+            for word in re.split('; |, |\*|\n|;|!|\?|\.|\t| ', line):
                 if len(word) < C:
                     continue
                 theWord = un.unidecode(word.lower())
@@ -126,6 +126,7 @@ def IDF(files, tad, tadStr):
         if word is None:
             for fil in files:
                 weights[i].append(0)
+            i += 1
             continue
         dj = word.getQFilesWOccurs(termo)
         for fil in files:
